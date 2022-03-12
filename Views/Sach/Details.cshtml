@@ -1,0 +1,75 @@
+﻿@model SmartLibrary.Models.Sach
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Sach</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LoaiSach.TenLoai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoaiSach.TenLoai)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenSach)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenSach)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tomtat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tomtat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Anh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Anh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NhaXB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NhaXB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NamXB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NamXB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tacgia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tacgia)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaSach }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

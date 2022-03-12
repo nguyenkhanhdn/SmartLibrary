@@ -1,0 +1,55 @@
+﻿@model IEnumerable<SmartLibrary.Models.Lop>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="row-border hover" id="lop">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TenLop)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GVCN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ghichu)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenLop)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GVCN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ghichu)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.MaLop }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.MaLop }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.MaLop })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#lop').DataTable();
+        });
+    </script>
+}
