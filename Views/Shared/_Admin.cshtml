@@ -21,7 +21,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="~/admin" class="nav-link">Home</a>
+                    <a href="~/Home" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
@@ -165,9 +165,15 @@
                     <div class="image">
                         <img src="~/Content/img/avatar.png" class="img-circle elevation-2" alt="User Image">
                     </div>
-                    <div class="info">
-                        <a href="#" class="d-block">Admin</a>
-                    </div>
+                    @{
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="info">
+                                <a href="#" class="d-block">@User.Identity.Name</a>
+                            </div> 
+                        }
+                    }
+
                 </div>
 
                 <!-- SidebarSearch Form -->
@@ -232,18 +238,7 @@
                         </li>
                     </ul>
                 </nav>
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="info">
-                        <hr />
-                        <a href="~/Home" class="nav-link">
-                            <i class="fa fa-link" aria-hidden="true"></i>
-                            <p>
-                                Home
-                            </p>
-                        </a>
-                    </div>
-
-                </div>
+                
                 
                 <!-- /.sidebar-menu -->
             </div>
@@ -261,8 +256,22 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Starter Page</li>
+                                <li class="breadcrumb-item">
+
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+
+                                                <ul class="nav navbar-nav navbar-right">
+                                                        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                                                    </ul>
+                                                    }
+                                        }
+
+                                </li>
+                                
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->

@@ -2,79 +2,68 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Admin.cshtml";
 }
 
+<h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Tạo mới", "Create")
+    @Html.ActionLink("Create New", "Create")
 </p>
-<table class="row-border hover" id="Sach">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.LoaiSach.TenLoai)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TenSach)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tomtat)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Anh)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NhaXB)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NamXB)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tacgia)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LoaiSach.TenLoai)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TenSach)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tomtat)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Anh)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NhaXB)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NamXB)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tacgia)
-                </td>
-                <td>
-                    @Html.ActionLink("Sửa", "Edit", new { id = item.MaSach }) |
-                    @Html.ActionLink("Chi tiết", "Details", new { id = item.MaSach }) |
-                    @Html.ActionLink("Xóa", "Delete", new { id = item.MaSach })
-                </td>
-            </tr>
-        }
-    </tbody>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LoaiSach.TenLoai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenSach)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tomtat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Anh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NhaXB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NamXB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tacgia)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LoaiSach.TenLoai)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenSach)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tomtat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Anh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NhaXB)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NamXB)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tacgia)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaSach }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaSach }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaSach })
+        </td>
+    </tr>
+}
 
 </table>
-@section scripts{
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#Sach').DataTable();
-        });
-    </script>
-}

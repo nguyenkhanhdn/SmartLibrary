@@ -1,0 +1,77 @@
+﻿@model IEnumerable<SmartLibrary.Models.Sach>
+
+@{
+    ViewBag.Title = "Tìm Sách";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table table-hover" id="searchBook">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TenSach)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tacgia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NamXB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tomtat)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Anh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoaiSach.TenLoai)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            var itm = "";
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenSach)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tacgia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NamXB)
+                </td>
+                <td>
+                    @Html.Raw(System.Web.HttpUtility.HtmlDecode(item.Tomtat))
+                    @*@Html.Raw(System.Web.HttpUtility.HtmlDecode(item.Tomtat.Substring(0, 200)))*@
+                </td>
+                <td>
+                    <img src="@item.Anh" style="max-width:50%;" />
+                    @*@Html.DisplayFor(modelItem => item.Img)*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoaiSach.TenLoai)
+                </td>
+                <td>
+                    @Html.ActionLink("Thêm vào giỏ", "AddToCart", "Home",
+                     new { @Id = item.MaSach + "-" + item.TenSach }, new { @class = "btn btn-primary" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#searchBook').DataTable({
+                "lengthMenu": [[ 10, 25, 50, -1], [10, 25, 50, "All"]]
+            });
+        });
+    </script>
+}

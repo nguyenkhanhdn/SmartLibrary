@@ -10,113 +10,112 @@ using SmartLibrary.Models;
 
 namespace SmartLibrary.Controllers
 {
-    public class SachController : Controller
+    public class HocsinhController : Controller
     {
         private LibraryModel db = new LibraryModel();
 
-        // GET: Sach
+        // GET: Hocsinh
         public ActionResult Index()
         {
-            var saches = db.Saches.Include(s => s.LoaiSach);
-            return View(saches.ToList());
+            var hocsinhs = db.Hocsinhs.Include(h => h.Lop);
+            return View(hocsinhs.ToList());
         }
 
-        // GET: Sach/Details/5
+        // GET: Hocsinh/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sach sach = db.Saches.Find(id);
-            if (sach == null)
+            Hocsinh hocsinh = db.Hocsinhs.Find(id);
+            if (hocsinh == null)
             {
                 return HttpNotFound();
             }
-            return View(sach);
+            return View(hocsinh);
         }
 
-        // GET: Sach/Create
+        // GET: Hocsinh/Create
         public ActionResult Create()
         {
-            ViewBag.MaLS = new SelectList(db.LoaiSaches, "MaLS", "TenLoai");
+            ViewBag.MaLop = new SelectList(db.Lops, "MaLop", "TenLop");
             return View();
         }
 
-        // POST: Sach/Create
+        // POST: Hocsinh/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [ValidateInput(false)]
-        public ActionResult Create([Bind(Include = "MaSach,TenSach,MaLS,Tomtat,Anh,NhaXB,NamXB,Tacgia")] Sach sach)
+        public ActionResult Create([Bind(Include = "MaHS,TenHS,MaLop,Dienthoai,Email,Diachi,Phuhuynh,Anh")] Hocsinh hocsinh)
         {
             if (ModelState.IsValid)
             {
-                db.Saches.Add(sach);
+                db.Hocsinhs.Add(hocsinh);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MaLS = new SelectList(db.LoaiSaches, "MaLS", "TenLoai", sach.MaLS);
-            return View(sach);
+            ViewBag.MaLop = new SelectList(db.Lops, "MaLop", "TenLop", hocsinh.MaLop);
+            return View(hocsinh);
         }
 
-        // GET: Sach/Edit/5
+        // GET: Hocsinh/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sach sach = db.Saches.Find(id);
-            if (sach == null)
+            Hocsinh hocsinh = db.Hocsinhs.Find(id);
+            if (hocsinh == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.MaLS = new SelectList(db.LoaiSaches, "MaLS", "TenLoai", sach.MaLS);
-            return View(sach);
+            ViewBag.MaLop = new SelectList(db.Lops, "MaLop", "TenLop", hocsinh.MaLop);
+            return View(hocsinh);
         }
 
-        // POST: Sach/Edit/5
+        // POST: Hocsinh/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaSach,TenSach,MaLS,Tomtat,Anh,NhaXB,NamXB,Tacgia")] Sach sach)
+        public ActionResult Edit([Bind(Include = "MaHS,TenHS,MaLop,Dienthoai,Email,Diachi,Phuhuynh,Anh")] Hocsinh hocsinh)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(sach).State = EntityState.Modified;
+                db.Entry(hocsinh).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.MaLS = new SelectList(db.LoaiSaches, "MaLS", "TenLoai", sach.MaLS);
-            return View(sach);
+            ViewBag.MaLop = new SelectList(db.Lops, "MaLop", "TenLop", hocsinh.MaLop);
+            return View(hocsinh);
         }
 
-        // GET: Sach/Delete/5
+        // GET: Hocsinh/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sach sach = db.Saches.Find(id);
-            if (sach == null)
+            Hocsinh hocsinh = db.Hocsinhs.Find(id);
+            if (hocsinh == null)
             {
                 return HttpNotFound();
             }
-            return View(sach);
+            return View(hocsinh);
         }
 
-        // POST: Sach/Delete/5
+        // POST: Hocsinh/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Sach sach = db.Saches.Find(id);
-            db.Saches.Remove(sach);
+            Hocsinh hocsinh = db.Hocsinhs.Find(id);
+            db.Hocsinhs.Remove(hocsinh);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

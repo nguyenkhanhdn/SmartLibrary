@@ -10,7 +10,6 @@ using SmartLibrary.Models;
 
 namespace SmartLibrary.Controllers
 {
-    [Authorize]
     public class LoaisachController : Controller
     {
         private LibraryModel db = new LibraryModel();
@@ -18,8 +17,7 @@ namespace SmartLibrary.Controllers
         // GET: Loaisach
         public ActionResult Index()
         {
-            var list = db.LoaiSaches.ToList();
-            return View(list);
+            return View(db.LoaiSaches.ToList());
         }
 
         // GET: Loaisach/Details/5
@@ -35,7 +33,6 @@ namespace SmartLibrary.Controllers
                 return HttpNotFound();
             }
             return View(loaiSach);
-            //return View("Details", loaiSach);
         }
 
         // GET: Loaisach/Create

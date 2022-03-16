@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Registration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Đăng ký mượn sách</h2>
+<form action="~/Home/doRegister" method="post" class="form-horizontal">
+    <table class="table">
+        <tr>
+            <td colspan="2"><strong>Thông tin</strong></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><input name="Email" type="text" class="form-control" value="@ViewBag.Email" readonly /></td>
+        </tr>
+        <tr>
+            <td>User Name</td>
+            <td><input name="UserName" type="text" class="form-control" value="@ViewBag.UserName" readonly /></td>
+        </tr>
+        <tr>
+            <td>Số điện thoại</td>
+            <td><input name="Phone" type="text" class="form-control" value="@ViewBag.Phone" /></td>
+        </tr>
+        <tr>
+            <td>Ghi chú</td>
+            <td><input name="note" type="text" class="form-control" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Mượn" class="btn btn-primary" /></td>
+        </tr>
+    </table>
+</form>
+

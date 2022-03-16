@@ -1,7 +1,11 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Configuration;
 
 namespace SmartLibrary.Models
 {
@@ -11,12 +15,37 @@ namespace SmartLibrary.Models
             : base("name=LibraryModel")
         {
         }
+
         public virtual DbSet<DangKyMuon> DangKyMuons { get; set; }
         public virtual DbSet<Hocsinh> Hocsinhs { get; set; }
         public virtual DbSet<LoaiSach> LoaiSaches { get; set; }
         public virtual DbSet<Lop> Lops { get; set; }
         public virtual DbSet<MuonTra> MuonTras { get; set; }
         public virtual DbSet<Sach> Saches { get; set; }
+        public MemberInfo GetMemberInfo(string userid)
+        {
+            MemberInfo mi = new MemberInfo();
+
+            SqlConnection con = new SqlConnection();
+            con.ConnectionString = ConfigurationManager.ConnectionStrings["LibraryModel"].ConnectionString;
+            SqlCommand cmd = new SqlCommand("GetMemberInfo", con);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@userid", userid);
+            con.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                mi.Email = reader["Email"].ToString();
+                mi.UserName = reader["UserName"].ToString();
+                mi.PhoneNumber = reader["PhoneNumber"].ToString();
+            }
+
+            con.Close();
+            return mi;
+
+        }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -58,10 +87,6 @@ namespace SmartLibrary.Models
                 .WithRequired(e => e.Hocsinh)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<LoaiSach>()
-                .Property(e => e.MaLS)
-                .IsUnicode(false);
-
             modelBuilder.Entity<Lop>()
                 .Property(e => e.MaLop)
                 .IsUnicode(false);
@@ -81,10 +106,6 @@ namespace SmartLibrary.Models
 
             modelBuilder.Entity<Sach>()
                 .Property(e => e.MaSach)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Sach>()
-                .Property(e => e.MaLS)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Sach>()
