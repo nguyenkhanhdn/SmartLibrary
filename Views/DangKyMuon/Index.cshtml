@@ -1,0 +1,146 @@
+﻿@model IEnumerable<SmartLibrary.Models.DangKyMuon>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section title{
+    <span>Đăng ký mượn sách</span>
+}
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" href="~/DangKyMuon/ShowAll">Tất cả</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="~/DangKyMuon/Index">Chưa xử lý</a>
+    </li>
+</ul>
+<br/>
+<table class="table table-bordered table-hover" id="dangky">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayDK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayNhan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phuongthuc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Diachi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dienthoai)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Hocsinh.Hoten)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sach.TenSach)
+            </th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayDK)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayNhan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phuongthuc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Diachi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dienthoai)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hocsinh.Hoten)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sach.TenSach)
+                </td>
+                <td>
+                    @if (!item.Xuly)
+                    {
+                        <button type="button" onclick="doXuLy(@item.Id)" class="btn btn-primary">
+                            Xử lý mượn sách
+                        </button>                        
+                    }
+
+                    @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Chi tiết", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Xóa", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<!-- Button trigger modal -->
+
+Result:<span id="lblMsg"></span>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#dangky').DataTable({
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+            });
+        });
+
+        function doXuLy(id) {
+            if (confirm("Đồng ý, xử lý cho học sinh mượn sách?") == true) {
+
+                var order = {
+                    "id": id
+                };
+                //debugger;
+                //var data = JSON.stringify(order);
+                //$.ajax({
+                //    type: "POST",
+                //    url: "/DangKyMuon/doXuLy",
+                //    data: data,
+                //    contentType: "application/json; charset=utf-8",
+                //    dataType: "json",
+                //    success: OnSuccess,
+                //    failure: function (response) {
+                //        alert(response.d);
+                //    }
+                //});
+
+                $.ajax({
+                    url: '@Url.Action("doXuLy", "DangKyMuon")',
+                    type: "GET",
+                    dataType: "json",
+                    async: true, 
+                    data: order,
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        //$('#lblMsg').val(data); 
+                    },
+                    complete: function () {
+                        //alert("Completed.");
+                    },
+                    error: function (xmlHttxmpquest, errorText, thrownError) {
+                        alert(errorText);
+                    }
+                });
+            }
+        }
+        function OnSuccess(response) {
+            alert(response.d);
+        }
+    </script>
+}

@@ -1,0 +1,96 @@
+﻿@model IEnumerable<SmartLibrary.Models.MuonTra>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section title{
+    <span>Mượn - trả sách</span>
+}
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" href="~/Muontra">Tất cả</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="~/Muontra/chuatra">Chưa trả</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="~/Muontra/quahan">Quá hạn</a>
+    </li>
+</ul>
+<hr />
+<p>
+    @Html.ActionLink("Mượn sách", "Create")
+</p>
+<table class="table table-bordered table-condensed table-hover" id="muontra">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayMuon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ngaytra)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ngayphaitra)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tienphat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ghichu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hocsinh.Hoten)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sach.TenSach)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayMuon)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ngaytra)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ngayphaitra)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tienphat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ghichu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hocsinh.Hoten)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sach.TenSach)
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Chi tiết", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Xóa", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#muontra').DataTable({
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+            });
+        });
+    </script>
+}

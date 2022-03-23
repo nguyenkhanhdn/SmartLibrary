@@ -4,42 +4,54 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
+@section title{<span>Loại sách</span>}
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Thêm mới", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TenLoai)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Mota)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Anh)
-        </th>
-        <th></th>
-    </tr>
+<table class="table table-bordered table-condensed table-hover" id="loai">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TenLoai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mota)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Anh)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenLoai)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mota)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.Anh)*@
+                    <img src="@Html.Raw(HttpUtility.HtmlDecode(item.Anh))" style="max-width:120px;max-height:150px;" />
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenLoai)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Mota)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Anh)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MaLS }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MaLS }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MaLS })
-        </td>
-    </tr>
-}
-
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Chi tiết", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Xóa", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#loai').DataTable();
+        });
+    </script>
+}

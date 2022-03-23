@@ -4,16 +4,18 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+@section title{
+    <span>Danh sách lớp</span>
+}
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Thêm mới", "Create")
 </p>
-<table class="row-border hover" id="lop">
+<table class="table table-hover table-condensed" id="lop">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TenLop)
+                @Html.DisplayNameFor(model => model.Tenlop)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.GVCN)
@@ -29,7 +31,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TenLop)
+                    @Html.DisplayFor(modelItem => item.Tenlop)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.GVCN)
@@ -38,16 +40,16 @@
                     @Html.DisplayFor(modelItem => item.Ghichu)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.MaLop }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.MaLop }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.MaLop })
+                    @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Chi tiết", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Xóa", "Delete", new { id = item.Id })
                 </td>
             </tr>
         }
     </tbody>
 </table>
 @section scripts{
-    <script type="text/javascript">
+    <script>
         $(document).ready(function () {
             $('#lop').DataTable();
         });

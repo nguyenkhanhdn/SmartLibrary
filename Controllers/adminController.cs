@@ -12,7 +12,7 @@ namespace SmartLibrary.Controllers
         // GET: admin
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "DangKyMuon");
         }
     }
 }

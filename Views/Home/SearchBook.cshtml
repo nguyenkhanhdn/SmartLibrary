@@ -1,13 +1,14 @@
 ﻿@model IEnumerable<SmartLibrary.Models.Sach>
 
 @{
-    ViewBag.Title = "Tìm Sách";
+    ViewBag.Title = "Tìm sách";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>@ViewBag.Title</h2>
+<hr/>
 
-<table class="table table-hover" id="searchBook">
+<table class="table table-hover table-bordered table-condensed" id="searchBook">
     <thead>
         <tr>
             <th>
@@ -51,7 +52,7 @@
                     @*@Html.Raw(System.Web.HttpUtility.HtmlDecode(item.Tomtat.Substring(0, 200)))*@
                 </td>
                 <td>
-                    <img src="@item.Anh" style="max-width:50%;" />
+                    <img src="@item.Anh" style="max-width:100px;max-height:110px;" />
                     @*@Html.DisplayFor(modelItem => item.Img)*@
                 </td>
                 <td>
@@ -59,7 +60,7 @@
                 </td>
                 <td>
                     @Html.ActionLink("Thêm vào giỏ", "AddToCart", "Home",
-                     new { @Id = item.MaSach + "-" + item.TenSach }, new { @class = "btn btn-primary" })
+                     new { @Id = item.Id + "-" + item.TenSach }, new { @class = "btn btn-primary" })
                 </td>
             </tr>
         }
@@ -69,9 +70,10 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            $('#searchBook').DataTable({
-                "lengthMenu": [[ 10, 25, 50, -1], [10, 25, 50, "All"]]
-            });
+            $('#searchBook').DataTable(
+                {
+                    "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+                });
         });
     </script>
 }

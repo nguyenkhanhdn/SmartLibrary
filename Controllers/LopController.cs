@@ -10,10 +10,9 @@ using SmartLibrary.Models;
 
 namespace SmartLibrary.Controllers
 {
-    [Authorize]
     public class LopController : Controller
     {
-        private LibraryModel db = new LibraryModel();
+        private LibraryEntities db = new LibraryEntities();
 
         // GET: Lop
         public ActionResult Index()
@@ -22,7 +21,7 @@ namespace SmartLibrary.Controllers
         }
 
         // GET: Lop/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -47,7 +46,7 @@ namespace SmartLibrary.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaLop,TenLop,GVCN,Ghichu")] Lop lop)
+        public ActionResult Create([Bind(Include = "Id,Tenlop,GVCN,Ghichu")] Lop lop)
         {
             if (ModelState.IsValid)
             {
@@ -60,7 +59,7 @@ namespace SmartLibrary.Controllers
         }
 
         // GET: Lop/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -79,7 +78,7 @@ namespace SmartLibrary.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaLop,TenLop,GVCN,Ghichu")] Lop lop)
+        public ActionResult Edit([Bind(Include = "Id,Tenlop,GVCN,Ghichu")] Lop lop)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +90,7 @@ namespace SmartLibrary.Controllers
         }
 
         // GET: Lop/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -108,7 +107,7 @@ namespace SmartLibrary.Controllers
         // POST: Lop/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             Lop lop = db.Lops.Find(id);
             db.Lops.Remove(lop);

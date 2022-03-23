@@ -234,9 +234,9 @@
                 <div class="card" style="width:100%;">
                     <div class="card-body">
                         <h4 class="card-title">@item.TenSach</h4>
-                        <p class="card-text" style="text-align:justify;">@Html.Raw(System.Web.HttpUtility.HtmlDecode(item.Tomtat.Substring(0, 200)))</p>
+                        <p class="card-text" style="text-align:justify;">@Html.Raw(System.Web.HttpUtility.HtmlDecode(item.Tomtat.Substring(0, Math.Min(item.Tomtat.Length, 200))))</p>
                         <p class="card-text">@item.Tacgia - @item.NamXB </p>
-                        @Html.ActionLink("Mượn sách", "AddToCart", "Home", new { @Id = item.MaSach + "-" + item.TenSach }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Mượn sách", "AddToCart", "Home", new { @Id = item.Id + "-" + item.TenSach }, new { @class = "btn btn-primary" })
                     </div>
                 </div>
             </div>

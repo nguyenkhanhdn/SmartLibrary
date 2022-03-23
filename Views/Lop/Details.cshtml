@@ -3,19 +3,19 @@
 @{
     ViewBag.Title = "Details";
 }
-
-<h2>Details</h2>
-
+@section title{
+    
+    }
 <div>
     <h4>Lop</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.TenLop)
+            @Html.DisplayNameFor(model => model.Tenlop)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TenLop)
+            @Html.DisplayFor(model => model.Tenlop)
         </dd>
 
         <dt>
@@ -37,6 +37,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaLop }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

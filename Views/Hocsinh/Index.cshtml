@@ -1,69 +1,84 @@
 ﻿@model IEnumerable<SmartLibrary.Models.Hocsinh>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Học sinh";
 }
 
-<h2>Index</h2>
-
+@section title{
+    <span>Học sinh</span>
+}
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Thêm mới", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Lop.TenLop)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TenHS)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Dienthoai)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Diachi)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Phuhuynh)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Anh)
-        </th>
-        <th></th>
-    </tr>
+<table class="table table-bordered table-hover" id="hocsinh">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Hoten)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dienthoai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Diachi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phuhuynh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Anh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lop.Tenlop)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Lop.TenLop)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenHS)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Dienthoai)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Diachi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phuhuynh)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Anh)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MaHS }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MaHS }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MaHS })
-        </td>
-    </tr>
-}
 
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hoten)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dienthoai)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Diachi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phuhuynh)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.Anh)*@
+                    <img src="@Html.Raw(HttpUtility.HtmlDecode(item.Anh))" style="max-width:120px;max-height:150px" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lop.Tenlop)
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Chi tiết", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Xóa", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#hocsinh').DataTable();
+        });
+    </script>
+}

@@ -12,7 +12,7 @@ namespace SmartLibrary.Controllers
 {
     public class SachController : Controller
     {
-        private LibraryModel db = new LibraryModel();
+        private LibraryEntities db = new LibraryEntities();
 
         // GET: Sach
         public ActionResult Index()
@@ -22,7 +22,7 @@ namespace SmartLibrary.Controllers
         }
 
         // GET: Sach/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -39,7 +39,7 @@ namespace SmartLibrary.Controllers
         // GET: Sach/Create
         public ActionResult Create()
         {
-            ViewBag.MaLS = new SelectList(db.LoaiSaches, "MaLS", "TenLoai");
+            ViewBag.LoaisachId = new SelectList(db.LoaiSaches, "Id", "TenLoai");
             return View();
         }
 
@@ -48,8 +48,7 @@ namespace SmartLibrary.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [ValidateInput(false)]
-        public ActionResult Create([Bind(Include = "MaSach,TenSach,MaLS,Tomtat,Anh,NhaXB,NamXB,Tacgia")] Sach sach)
+        public ActionResult Create([Bind(Include = "Id,TenSach,LoaisachId,Tomtat,Anh,NhaXB,NamXB,Tacgia")] Sach sach)
         {
             if (ModelState.IsValid)
             {
@@ -58,12 +57,12 @@ namespace SmartLibrary.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MaLS = new SelectList(db.LoaiSaches, "MaLS", "TenLoai", sach.MaLS);
+            ViewBag.LoaisachId = new SelectList(db.LoaiSaches, "Id", "TenLoai", sach.LoaisachId);
             return View(sach);
         }
 
         // GET: Sach/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -74,7 +73,7 @@ namespace SmartLibrary.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MaLS = new SelectList(db.LoaiSaches, "MaLS", "TenLoai", sach.MaLS);
+            ViewBag.LoaisachId = new SelectList(db.LoaiSaches, "Id", "TenLoai", sach.LoaisachId);
             return View(sach);
         }
 
@@ -83,7 +82,7 @@ namespace SmartLibrary.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaSach,TenSach,MaLS,Tomtat,Anh,NhaXB,NamXB,Tacgia")] Sach sach)
+        public ActionResult Edit([Bind(Include = "Id,TenSach,LoaisachId,Tomtat,Anh,NhaXB,NamXB,Tacgia")] Sach sach)
         {
             if (ModelState.IsValid)
             {
@@ -91,12 +90,12 @@ namespace SmartLibrary.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.MaLS = new SelectList(db.LoaiSaches, "MaLS", "TenLoai", sach.MaLS);
+            ViewBag.LoaisachId = new SelectList(db.LoaiSaches, "Id", "TenLoai", sach.LoaisachId);
             return View(sach);
         }
 
         // GET: Sach/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -113,7 +112,7 @@ namespace SmartLibrary.Controllers
         // POST: Sach/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             Sach sach = db.Saches.Find(id);
             db.Saches.Remove(sach);

@@ -10,18 +10,18 @@ using SmartLibrary.Models;
 
 namespace SmartLibrary.Controllers
 {
-    public class LoaisachController : Controller
+    public class LoaiSachController : Controller
     {
-        private LibraryModel db = new LibraryModel();
+        private LibraryEntities db = new LibraryEntities();
 
-        // GET: Loaisach
+        // GET: LoaiSach
         public ActionResult Index()
         {
             return View(db.LoaiSaches.ToList());
         }
 
-        // GET: Loaisach/Details/5
-        public ActionResult Details(string id)
+        // GET: LoaiSach/Details/5
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -35,18 +35,18 @@ namespace SmartLibrary.Controllers
             return View(loaiSach);
         }
 
-        // GET: Loaisach/Create
+        // GET: LoaiSach/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Loaisach/Create
+        // POST: LoaiSach/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaLS,TenLoai,Mota,Anh")] LoaiSach loaiSach)
+        public ActionResult Create([Bind(Include = "Id,TenLoai,Mota,Anh")] LoaiSach loaiSach)
         {
             if (ModelState.IsValid)
             {
@@ -58,8 +58,8 @@ namespace SmartLibrary.Controllers
             return View(loaiSach);
         }
 
-        // GET: Loaisach/Edit/5
-        public ActionResult Edit(string id)
+        // GET: LoaiSach/Edit/5
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -73,12 +73,12 @@ namespace SmartLibrary.Controllers
             return View(loaiSach);
         }
 
-        // POST: Loaisach/Edit/5
+        // POST: LoaiSach/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaLS,TenLoai,Mota,Anh")] LoaiSach loaiSach)
+        public ActionResult Edit([Bind(Include = "Id,TenLoai,Mota,Anh")] LoaiSach loaiSach)
         {
             if (ModelState.IsValid)
             {
@@ -89,8 +89,8 @@ namespace SmartLibrary.Controllers
             return View(loaiSach);
         }
 
-        // GET: Loaisach/Delete/5
-        public ActionResult Delete(string id)
+        // GET: LoaiSach/Delete/5
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -104,10 +104,10 @@ namespace SmartLibrary.Controllers
             return View(loaiSach);
         }
 
-        // POST: Loaisach/Delete/5
+        // POST: LoaiSach/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             LoaiSach loaiSach = db.LoaiSaches.Find(id);
             db.LoaiSaches.Remove(loaiSach);

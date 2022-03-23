@@ -3,21 +3,12 @@
 @{
     ViewBag.Title = "Details";
 }
-
-<h2>Details</h2>
-
+@section title{
+    <span>Chi tiết sách</span>
+    }
 <div>
-    <h4>Sach</h4>
-    <hr />
+ 
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.LoaiSach.TenLoai)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LoaiSach.TenLoai)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.TenSach)
         </dt>
@@ -31,7 +22,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Tomtat)
+            @*@Html.DisplayFor(model => model.Tomtat)*@
+            @Html.Raw(HttpUtility.HtmlDecode(Model.Tomtat))
         </dd>
 
         <dt>
@@ -39,7 +31,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Anh)
+            <img src="@Model.Anh" style="max-width:120px;max-height:150px;" />
+            @*@Html.DisplayFor(model => model.Anh)*@
         </dd>
 
         <dt>
@@ -66,9 +59,17 @@
             @Html.DisplayFor(model => model.Tacgia)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.LoaiSach.TenLoai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoaiSach.TenLoai)
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaSach }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

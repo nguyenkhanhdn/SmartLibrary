@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using SmartLibrary.Models;
+
 namespace SmartLibrary.Controllers
 {
     public class HomeController : Controller
     {
-        private SmartLibrary.Models.LibraryModel db = new  Models.LibraryModel();
+        private LibraryEntities db = new LibraryEntities();
         public ActionResult Index()
         {
-            var books = db.Saches;
+            var books = db.Saches.OrderByDescending(b=>b.Id);
+            //var books = db.Saches.OrderBy(b => Guid.NewGuid());
             //books.Take(8);
             //return View(books.ToList().Take(12));
             return View(books.ToList().Take(12));
@@ -83,42 +86,44 @@ namespace SmartLibrary.Controllers
             {
                 RedirectToAction("Index");
             }
-            var info = db.GetMemberInfo(User.Identity.GetUserId());
-            ViewBag.Email = info.Email;
-            ViewBag.UserName = info.UserName;
-            ViewBag.Phone = info.PhoneNumber;
+
+            var hs = db.Hocsinhs.Where(h => h.Email == User.Identity.Name).FirstOrDefault();
+            ViewBag.HocsinhId = hs.Id;
+            ViewBag.Diachi = hs.Diachi;
+            ViewBag.Dienthoai = hs.Dienthoai;
+            ViewBag.Hoten = hs.Hoten;
             return View();
         }
-        //[Authorize()]
-        //public ActionResult doRegister(string MemberId, string Fullname, string Phone, string note)
-        //{
-        //    Registration regInfo = null;
-
-        //    ShoppingCart cart = (ShoppingCart)Session["cart"];
-        //    if (cart == null)
-        //    {
-        //        cart = new ShoppingCart();
-        //        RedirectToAction("Index");
-        //    }
-        //    else
-        //    {
-        //        foreach (DataRow row in cart.CartItems.Rows)
-        //        {
-        //            regInfo = new Registration();
-        //            regInfo.BookId = row["bookId"].ToString();
-        //            regInfo.MemberId = MemberId;
-        //            regInfo.Fullname = Fullname;
-        //            regInfo.Phone = Phone;
-        //            regInfo.note = note;
-        //            regInfo.RegDate = DateTime.Today;
-        //            regInfo.RecDate = DateTime.Today.AddDays(1);
-        //            db.Registrations.Add(regInfo);
-        //        }
-        //        db.SaveChanges();
-        //    }
-
-        //    Session["cart"] = null;
-        //    return View("Success");
-        //}
+        [Authorize()]
+        public ActionResult Register(string hocsinhId, string ngaydk, string ngaynhan, string phuongthuc, string diachi, string dienthoai,string ghichu)
+        {
+            DangKyMuon regInfo = null;
+            
+            ShoppingCart cart = (ShoppingCart)Session["cart"];
+            if (cart == null)
+            {
+                cart = new ShoppingCart();
+                RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (DataRow row in cart.CartItems.Rows)
+                {
+                    regInfo = new DangKyMuon();
+                    regInfo.SachId = int.Parse(row[0].ToString());
+                    regInfo.HocsinhId = int.Parse(hocsinhId);
+                    regInfo.NgayDK = DateTime.Parse(ngaydk);
+                    regInfo.NgayNhan = DateTime.Parse(ngaynhan);
+                    regInfo.Phuongthuc = phuongthuc;
+                    regInfo.Diachi = diachi;
+                    regInfo.Dienthoai = dienthoai;
+                    db.DangKyMuons.Add(regInfo);
+                }
+                db.SaveChanges();
+            }
+            
+            Session["cart"] = null;
+            return View("Success");
+        }
     }
 }

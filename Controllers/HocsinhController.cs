@@ -10,9 +10,10 @@ using SmartLibrary.Models;
 
 namespace SmartLibrary.Controllers
 {
+    [Authorize]
     public class HocsinhController : Controller
     {
-        private LibraryModel db = new LibraryModel();
+        private LibraryEntities db = new LibraryEntities();
 
         // GET: Hocsinh
         public ActionResult Index()
@@ -22,7 +23,7 @@ namespace SmartLibrary.Controllers
         }
 
         // GET: Hocsinh/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -37,9 +38,10 @@ namespace SmartLibrary.Controllers
         }
 
         // GET: Hocsinh/Create
+        [AllowAnonymous]
         public ActionResult Create()
         {
-            ViewBag.MaLop = new SelectList(db.Lops, "MaLop", "TenLop");
+            ViewBag.LopId = new SelectList(db.Lops, "Id", "Tenlop");
             return View();
         }
 
@@ -48,21 +50,22 @@ namespace SmartLibrary.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaHS,TenHS,MaLop,Dienthoai,Email,Diachi,Phuhuynh,Anh")] Hocsinh hocsinh)
+        [AllowAnonymous]
+        public ActionResult Create([Bind(Include = "Id,Hoten,LopId,Dienthoai,Email,Diachi,Phuhuynh,Anh")] Hocsinh hocsinh)
         {
             if (ModelState.IsValid)
             {
                 db.Hocsinhs.Add(hocsinh);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("~/Home");
             }
 
-            ViewBag.MaLop = new SelectList(db.Lops, "MaLop", "TenLop", hocsinh.MaLop);
+            ViewBag.LopId = new SelectList(db.Lops, "Id", "Tenlop", hocsinh.LopId);
             return View(hocsinh);
         }
 
         // GET: Hocsinh/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -73,7 +76,7 @@ namespace SmartLibrary.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MaLop = new SelectList(db.Lops, "MaLop", "TenLop", hocsinh.MaLop);
+            ViewBag.LopId = new SelectList(db.Lops, "Id", "Tenlop", hocsinh.LopId);
             return View(hocsinh);
         }
 
@@ -82,7 +85,7 @@ namespace SmartLibrary.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaHS,TenHS,MaLop,Dienthoai,Email,Diachi,Phuhuynh,Anh")] Hocsinh hocsinh)
+        public ActionResult Edit([Bind(Include = "Id,Hoten,LopId,Dienthoai,Email,Diachi,Phuhuynh,Anh")] Hocsinh hocsinh)
         {
             if (ModelState.IsValid)
             {
@@ -90,12 +93,12 @@ namespace SmartLibrary.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.MaLop = new SelectList(db.Lops, "MaLop", "TenLop", hocsinh.MaLop);
+            ViewBag.LopId = new SelectList(db.Lops, "Id", "Tenlop", hocsinh.LopId);
             return View(hocsinh);
         }
 
         // GET: Hocsinh/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -112,7 +115,7 @@ namespace SmartLibrary.Controllers
         // POST: Hocsinh/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             Hocsinh hocsinh = db.Hocsinhs.Find(id);
             db.Hocsinhs.Remove(hocsinh);

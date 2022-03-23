@@ -1,0 +1,483 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="eLibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DangKyMuon">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HocsinhId" Type="int" Nullable="false" />
+          <Property Name="SachId" Type="int" Nullable="false" />
+          <Property Name="NgayDK" Type="date" Nullable="false" />
+          <Property Name="NgayNhan" Type="date" Nullable="false" />
+          <Property Name="Phuongthuc" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Diachi" Type="nvarchar" MaxLength="80" />
+          <Property Name="Dienthoai" Type="varchar" MaxLength="10" />
+          <Property Name="Ghichu" Type="nvarchar" MaxLength="50" />
+          <Property Name="Xuly" Type="bit" />
+        </EntityType>
+        <EntityType Name="Hocsinh">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Hoten" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LopId" Type="int" Nullable="false" />
+          <Property Name="Dienthoai" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Diachi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phuhuynh" Type="nvarchar" MaxLength="50" />
+          <Property Name="Anh" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LoaiSach">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenLoai" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Mota" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Anh" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Lop">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tenlop" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GVCN" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ghichu" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="MuonTra">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HocsinhId" Type="int" Nullable="false" />
+          <Property Name="SachId" Type="int" Nullable="false" />
+          <Property Name="NgayMuon" Type="date" Nullable="false" />
+          <Property Name="Ngaytra" Type="date" />
+          <Property Name="Ngayphaitra" Type="date" Nullable="false" />
+          <Property Name="Tienphat" Type="float" />
+          <Property Name="Ghichu" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Sach">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenSach" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LoaisachId" Type="int" />
+          <Property Name="Tomtat" Type="nvarchar" MaxLength="500" />
+          <Property Name="Anh" Type="nvarchar" MaxLength="150" />
+          <Property Name="NhaXB" Type="nvarchar" MaxLength="50" />
+          <Property Name="NamXB" Type="varchar" MaxLength="10" />
+          <Property Name="Tacgia" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <Association Name="FK_DangKyMuon_Hocsinh">
+          <End Role="Hocsinh" Type="Self.Hocsinh" Multiplicity="1" />
+          <End Role="DangKyMuon" Type="Self.DangKyMuon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hocsinh">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DangKyMuon">
+              <PropertyRef Name="HocsinhId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DangKyMuon_Sach">
+          <End Role="Sach" Type="Self.Sach" Multiplicity="1" />
+          <End Role="DangKyMuon" Type="Self.DangKyMuon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sach">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DangKyMuon">
+              <PropertyRef Name="SachId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Hocsinh_Lop">
+          <End Role="Lop" Type="Self.Lop" Multiplicity="1" />
+          <End Role="Hocsinh" Type="Self.Hocsinh" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lop">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Hocsinh">
+              <PropertyRef Name="LopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MuonTra_Hocsinh">
+          <End Role="Hocsinh" Type="Self.Hocsinh" Multiplicity="1" />
+          <End Role="MuonTra" Type="Self.MuonTra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hocsinh">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MuonTra">
+              <PropertyRef Name="HocsinhId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MuonTra_Sach">
+          <End Role="Sach" Type="Self.Sach" Multiplicity="1" />
+          <End Role="MuonTra" Type="Self.MuonTra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sach">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MuonTra">
+              <PropertyRef Name="SachId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sach_LoaiSach">
+          <End Role="LoaiSach" Type="Self.LoaiSach" Multiplicity="0..1" />
+          <End Role="Sach" Type="Self.Sach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiSach">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sach">
+              <PropertyRef Name="LoaisachId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="eLibraryModelStoreContainer">
+          <EntitySet Name="DangKyMuon" EntityType="Self.DangKyMuon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hocsinh" EntityType="Self.Hocsinh" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoaiSach" EntityType="Self.LoaiSach" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lop" EntityType="Self.Lop" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MuonTra" EntityType="Self.MuonTra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sach" EntityType="Self.Sach" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DangKyMuon_Hocsinh" Association="Self.FK_DangKyMuon_Hocsinh">
+            <End Role="Hocsinh" EntitySet="Hocsinh" />
+            <End Role="DangKyMuon" EntitySet="DangKyMuon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DangKyMuon_Sach" Association="Self.FK_DangKyMuon_Sach">
+            <End Role="Sach" EntitySet="Sach" />
+            <End Role="DangKyMuon" EntitySet="DangKyMuon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hocsinh_Lop" Association="Self.FK_Hocsinh_Lop">
+            <End Role="Lop" EntitySet="Lop" />
+            <End Role="Hocsinh" EntitySet="Hocsinh" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MuonTra_Hocsinh" Association="Self.FK_MuonTra_Hocsinh">
+            <End Role="Hocsinh" EntitySet="Hocsinh" />
+            <End Role="MuonTra" EntitySet="MuonTra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MuonTra_Sach" Association="Self.FK_MuonTra_Sach">
+            <End Role="Sach" EntitySet="Sach" />
+            <End Role="MuonTra" EntitySet="MuonTra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sach_LoaiSach" Association="Self.FK_Sach_LoaiSach">
+            <End Role="LoaiSach" EntitySet="LoaiSach" />
+            <End Role="Sach" EntitySet="Sach" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="eLibraryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Hocsinh">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Hoten" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LopId" Type="Int32" Nullable="false" />
+          <Property Name="Dienthoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Diachi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phuhuynh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Anh" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Lop" Relationship="Self.FK_Hocsinh_Lop" FromRole="Hocsinh" ToRole="Lop" />
+          <NavigationProperty Name="MuonTras" Relationship="eLibraryModel.FK_MuonTra_Hocsinh" FromRole="Hocsinh" ToRole="MuonTra" />
+          <NavigationProperty Name="DangKyMuons" Relationship="eLibraryModel.FK_DangKyMuon_Hocsinh" FromRole="Hocsinh" ToRole="DangKyMuon" />
+        </EntityType>
+        <EntityType Name="LoaiSach">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenLoai" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Mota" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Anh" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Saches" Relationship="Self.FK_Sach_LoaiSach" FromRole="LoaiSach" ToRole="Sach" />
+        </EntityType>
+        <EntityType Name="Lop">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tenlop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GVCN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ghichu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Hocsinhs" Relationship="Self.FK_Hocsinh_Lop" FromRole="Lop" ToRole="Hocsinh" />
+        </EntityType>
+        <EntityType Name="Sach">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenSach" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoaisachId" Type="Int32" />
+          <Property Name="Tomtat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Anh" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="NhaXB" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NamXB" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Tacgia" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LoaiSach" Relationship="Self.FK_Sach_LoaiSach" FromRole="Sach" ToRole="LoaiSach" />
+          <NavigationProperty Name="MuonTras" Relationship="eLibraryModel.FK_MuonTra_Sach" FromRole="Sach" ToRole="MuonTra" />
+          <NavigationProperty Name="DangKyMuons" Relationship="eLibraryModel.FK_DangKyMuon_Sach" FromRole="Sach" ToRole="DangKyMuon" />
+        </EntityType>
+        <Association Name="FK_Hocsinh_Lop">
+          <End Role="Lop" Type="Self.Lop" Multiplicity="1" />
+          <End Role="Hocsinh" Type="Self.Hocsinh" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lop">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Hocsinh">
+              <PropertyRef Name="LopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sach_LoaiSach">
+          <End Role="LoaiSach" Type="Self.LoaiSach" Multiplicity="0..1" />
+          <End Role="Sach" Type="Self.Sach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiSach">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sach">
+              <PropertyRef Name="LoaisachId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LibraryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Hocsinhs" EntityType="Self.Hocsinh" />
+          <EntitySet Name="LoaiSaches" EntityType="Self.LoaiSach" />
+          <EntitySet Name="Lops" EntityType="Self.Lop" />
+          <EntitySet Name="Saches" EntityType="Self.Sach" />
+          <AssociationSet Name="FK_Hocsinh_Lop" Association="Self.FK_Hocsinh_Lop">
+            <End Role="Lop" EntitySet="Lops" />
+            <End Role="Hocsinh" EntitySet="Hocsinhs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sach_LoaiSach" Association="Self.FK_Sach_LoaiSach">
+            <End Role="LoaiSach" EntitySet="LoaiSaches" />
+            <End Role="Sach" EntitySet="Saches" />
+          </AssociationSet>
+          <EntitySet Name="MuonTras" EntityType="eLibraryModel.MuonTra" />
+          <AssociationSet Name="FK_MuonTra_Hocsinh" Association="eLibraryModel.FK_MuonTra_Hocsinh">
+            <End Role="Hocsinh" EntitySet="Hocsinhs" />
+            <End Role="MuonTra" EntitySet="MuonTras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MuonTra_Sach" Association="eLibraryModel.FK_MuonTra_Sach">
+            <End Role="Sach" EntitySet="Saches" />
+            <End Role="MuonTra" EntitySet="MuonTras" />
+          </AssociationSet>
+          <EntitySet Name="DangKyMuons" EntityType="eLibraryModel.DangKyMuon" />
+          <AssociationSet Name="FK_DangKyMuon_Hocsinh" Association="eLibraryModel.FK_DangKyMuon_Hocsinh">
+            <End Role="Hocsinh" EntitySet="Hocsinhs" />
+            <End Role="DangKyMuon" EntitySet="DangKyMuons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DangKyMuon_Sach" Association="eLibraryModel.FK_DangKyMuon_Sach">
+            <End Role="Sach" EntitySet="Saches" />
+            <End Role="DangKyMuon" EntitySet="DangKyMuons" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="MuonTra">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HocsinhId" Type="Int32" Nullable="false" />
+          <Property Name="SachId" Type="Int32" Nullable="false" />
+          <Property Name="NgayMuon" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Ngaytra" Type="DateTime" Precision="0" />
+          <Property Name="Ngayphaitra" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Tienphat" Type="Double" />
+          <Property Name="Ghichu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Hocsinh" Relationship="eLibraryModel.FK_MuonTra_Hocsinh" FromRole="MuonTra" ToRole="Hocsinh" />
+          <NavigationProperty Name="Sach" Relationship="eLibraryModel.FK_MuonTra_Sach" FromRole="MuonTra" ToRole="Sach" />
+        </EntityType>
+        <Association Name="FK_MuonTra_Hocsinh">
+          <End Type="eLibraryModel.Hocsinh" Role="Hocsinh" Multiplicity="1" />
+          <End Type="eLibraryModel.MuonTra" Role="MuonTra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hocsinh">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MuonTra">
+              <PropertyRef Name="HocsinhId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MuonTra_Sach">
+          <End Type="eLibraryModel.Sach" Role="Sach" Multiplicity="1" />
+          <End Type="eLibraryModel.MuonTra" Role="MuonTra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sach">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MuonTra">
+              <PropertyRef Name="SachId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DangKyMuon">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HocsinhId" Type="Int32" Nullable="false" />
+          <Property Name="SachId" Type="Int32" Nullable="false" />
+          <Property Name="NgayDK" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="NgayNhan" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Phuongthuc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Diachi" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="Dienthoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Ghichu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Xuly" Type="Boolean" />
+          <NavigationProperty Name="Hocsinh" Relationship="eLibraryModel.FK_DangKyMuon_Hocsinh" FromRole="DangKyMuon" ToRole="Hocsinh" />
+          <NavigationProperty Name="Sach" Relationship="eLibraryModel.FK_DangKyMuon_Sach" FromRole="DangKyMuon" ToRole="Sach" />
+        </EntityType>
+        <Association Name="FK_DangKyMuon_Hocsinh">
+          <End Type="eLibraryModel.Hocsinh" Role="Hocsinh" Multiplicity="1" />
+          <End Type="eLibraryModel.DangKyMuon" Role="DangKyMuon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hocsinh">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DangKyMuon">
+              <PropertyRef Name="HocsinhId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DangKyMuon_Sach">
+          <End Type="eLibraryModel.Sach" Role="Sach" Multiplicity="1" />
+          <End Type="eLibraryModel.DangKyMuon" Role="DangKyMuon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sach">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DangKyMuon">
+              <PropertyRef Name="SachId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="eLibraryModelStoreContainer" CdmEntityContainer="LibraryEntities">
+          <EntitySetMapping Name="Hocsinhs">
+            <EntityTypeMapping TypeName="eLibraryModel.Hocsinh">
+              <MappingFragment StoreEntitySet="Hocsinh">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Hoten" ColumnName="Hoten" />
+                <ScalarProperty Name="LopId" ColumnName="LopId" />
+                <ScalarProperty Name="Dienthoai" ColumnName="Dienthoai" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Diachi" ColumnName="Diachi" />
+                <ScalarProperty Name="Phuhuynh" ColumnName="Phuhuynh" />
+                <ScalarProperty Name="Anh" ColumnName="Anh" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoaiSaches">
+            <EntityTypeMapping TypeName="eLibraryModel.LoaiSach">
+              <MappingFragment StoreEntitySet="LoaiSach">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TenLoai" ColumnName="TenLoai" />
+                <ScalarProperty Name="Mota" ColumnName="Mota" />
+                <ScalarProperty Name="Anh" ColumnName="Anh" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lops">
+            <EntityTypeMapping TypeName="eLibraryModel.Lop">
+              <MappingFragment StoreEntitySet="Lop">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Tenlop" ColumnName="Tenlop" />
+                <ScalarProperty Name="GVCN" ColumnName="GVCN" />
+                <ScalarProperty Name="Ghichu" ColumnName="Ghichu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Saches">
+            <EntityTypeMapping TypeName="eLibraryModel.Sach">
+              <MappingFragment StoreEntitySet="Sach">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TenSach" ColumnName="TenSach" />
+                <ScalarProperty Name="LoaisachId" ColumnName="LoaisachId" />
+                <ScalarProperty Name="Tomtat" ColumnName="Tomtat" />
+                <ScalarProperty Name="Anh" ColumnName="Anh" />
+                <ScalarProperty Name="NhaXB" ColumnName="NhaXB" />
+                <ScalarProperty Name="NamXB" ColumnName="NamXB" />
+                <ScalarProperty Name="Tacgia" ColumnName="Tacgia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MuonTras">
+            <EntityTypeMapping TypeName="eLibraryModel.MuonTra">
+              <MappingFragment StoreEntitySet="MuonTra">
+                <ScalarProperty Name="Ghichu" ColumnName="Ghichu" />
+                <ScalarProperty Name="Tienphat" ColumnName="Tienphat" />
+                <ScalarProperty Name="Ngayphaitra" ColumnName="Ngayphaitra" />
+                <ScalarProperty Name="Ngaytra" ColumnName="Ngaytra" />
+                <ScalarProperty Name="NgayMuon" ColumnName="NgayMuon" />
+                <ScalarProperty Name="SachId" ColumnName="SachId" />
+                <ScalarProperty Name="HocsinhId" ColumnName="HocsinhId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DangKyMuons">
+            <EntityTypeMapping TypeName="eLibraryModel.DangKyMuon">
+              <MappingFragment StoreEntitySet="DangKyMuon">
+                <ScalarProperty Name="Xuly" ColumnName="Xuly" />
+                <ScalarProperty Name="Ghichu" ColumnName="Ghichu" />
+                <ScalarProperty Name="Dienthoai" ColumnName="Dienthoai" />
+                <ScalarProperty Name="Diachi" ColumnName="Diachi" />
+                <ScalarProperty Name="Phuongthuc" ColumnName="Phuongthuc" />
+                <ScalarProperty Name="NgayNhan" ColumnName="NgayNhan" />
+                <ScalarProperty Name="NgayDK" ColumnName="NgayDK" />
+                <ScalarProperty Name="SachId" ColumnName="SachId" />
+                <ScalarProperty Name="HocsinhId" ColumnName="HocsinhId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

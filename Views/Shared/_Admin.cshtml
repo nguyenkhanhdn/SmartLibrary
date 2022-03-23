@@ -204,7 +204,7 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="~/Loaisach" class="nav-link">
-                                        <i class="fa fa-book" aria-hidden="true"></i>
+                                        <i class="fa fa-link" aria-hidden="true"></i>
                                         <p>Loại sách</p>
                                     </a>
                                 </li>
@@ -215,27 +215,44 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="~/hocsinh" class="nav-link">
-                                        <i class="fa fa-book" aria-hidden="true"></i>
-                                        <p>Thành viên</p>
+                                    <a href="~/Lop" class="nav-link">
+                                        <i class="fa fa-link" aria-hidden="true"></i>
+                                        <p>Lớp</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="~/hocsinh" class="nav-link">
                                         <i class="fa fa-link" aria-hidden="true"></i>
-                                        <p>Inactive Page</p>
+                                        <p>Học sinh</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="~/Dangkymuon" class="nav-link">
+                                        <i class="fa fa-link" aria-hidden="true"></i>
+                                        <p>Đăng ký mượn</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="~/Muontra" class="nav-link">
+                                        <i class="fa fa-link" aria-hidden="true"></i>
+                                        <p>Mượn - Trả</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="~/Muontra/Quahan" class="nav-link">
+                                        <i class="fa fa-link" aria-hidden="true"></i>
+                                        <p>Sách trễ hạn</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="~/Muontra/Chuatra" class="nav-link">
+                                        <i class="fa fa-link" aria-hidden="true"></i>
+                                        <p>Sách chưa trả</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fa fa-link" aria-hidden="true"></i>
-                                <p>
-                                    Đăng xuất
-                                </p>
-                            </a>
-                        </li>
+                        
                     </ul>
                 </nav>
                 
@@ -286,7 +303,7 @@
                         <div class="col-lg-12">
                             <div class="card card-primary card-outline">
                                 <div class="card-header">
-                                    <h5 class="m-0">Placeholder: @RenderSection("title",required:false)</h5>
+                                    <h5 class="m-0">Admin / @RenderSection("title",required:false)</h5>
                                 </div>
                                 <div class="card-body">
                                     @RenderBody()
@@ -314,7 +331,7 @@
             <div class="float-right d-none d-sm-inline">
                 &copy; - Smart Library.
             </div>
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+            <strong>Copyright &copy; 2022 <a href="/Admin">Smart Library</a>.</strong> All rights reserved.
         </footer>
     </div>
     <!-- ./wrapper -->

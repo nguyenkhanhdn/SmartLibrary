@@ -4,26 +4,19 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+@section title{
+    <span>Thông tin học sinh</span>
+    }
 
 <div>
-    <h4>Hocsinh</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Lop.TenLop)
+            @Html.DisplayNameFor(model => model.Hoten)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Lop.TenLop)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TenHS)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenHS)
+            @Html.DisplayFor(model => model.Hoten)
         </dd>
 
         <dt>
@@ -66,9 +59,17 @@
             @Html.DisplayFor(model => model.Anh)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Lop.Tenlop)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lop.Tenlop)
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaHS }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
