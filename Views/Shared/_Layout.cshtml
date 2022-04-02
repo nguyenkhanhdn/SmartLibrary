@@ -28,6 +28,7 @@
                     <li>@Html.ActionLink("Liên hệ", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Sách của bạn", "Yourcart", "Home")</li>
                     <li>@Html.ActionLink("Tìm kiếm", "SearchBook", "Home")</li>
+                    
                     <li><a>|</a></li>
                     <li style="padding-left:20px;padding-top:10px;text-align:right;">
                         <form method="post" action="~/Home/doSearch" class="form-inline my-2 my-lg-0"> <input name="Tensach" class="form-control mr-sm-4" type="text" placeholder="Tên sách"> <button class="btn btn-secondary my-2 my-sm-0" type="submit">Tìm kiếm</button> </form>
@@ -42,7 +43,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Smart Library Application</p>
+            <p>&copy; @DateTime.Now.Year - Smart Library Application | @Html.ActionLink("admin", "index", "admin")</p>
         </footer>
     </div>
 
