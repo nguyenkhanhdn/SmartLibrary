@@ -12,6 +12,7 @@ using SmartLibrary.Models;
 
 namespace SmartLibrary.Controllers
 {
+    [Authorize(Users = "admin@sl.com")]
     public class DangKyMuonController : Controller
     {
         private LibraryEntities db = new LibraryEntities();
@@ -58,7 +59,7 @@ namespace SmartLibrary.Controllers
         // GET: DangKyMuon
         public ActionResult Index()
         {
-            var dangKyMuons = db.DangKyMuons.Include(d => d.Hocsinh).Include(d => d.Sach).Where(r => r.Xuly == false || r.Xuly == null);
+            var dangKyMuons = db.DangKyMuons.Include(d => d.Hocsinh).Include(d => d.Sach).Where(r => r.Xuly == false);
             return View(dangKyMuons.ToList());
         }
 

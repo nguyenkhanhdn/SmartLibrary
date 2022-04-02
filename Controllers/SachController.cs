@@ -10,6 +10,7 @@ using SmartLibrary.Models;
 
 namespace SmartLibrary.Controllers
 {
+    [Authorize(Users = "admin@sl.com")]
     public class SachController : Controller
     {
         private LibraryEntities db = new LibraryEntities();

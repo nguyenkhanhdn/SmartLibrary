@@ -10,7 +10,7 @@ using SmartLibrary.Models;
 
 namespace SmartLibrary.Controllers
 {
-    [Authorize]
+    [Authorize(Users = "admin@sl.com")]
     public class HocsinhController : Controller
     {
         private LibraryEntities db = new LibraryEntities();
@@ -50,14 +50,14 @@ namespace SmartLibrary.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AllowAnonymous]
+        [AllowAnonymous]        
         public ActionResult Create([Bind(Include = "Id,Hoten,LopId,Dienthoai,Email,Diachi,Phuhuynh,Anh")] Hocsinh hocsinh)
         {
             if (ModelState.IsValid)
             {
                 db.Hocsinhs.Add(hocsinh);
                 db.SaveChanges();
-                return RedirectToAction("~/Home");
+                return RedirectToAction("index");
             }
 
             ViewBag.LopId = new SelectList(db.Lops, "Id", "Tenlop", hocsinh.LopId);

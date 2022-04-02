@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace SmartLibrary.Controllers
 {
-    [Authorize]
+    [Authorize(Users = "admin@sl.com")]
     public class adminController : Controller
     {
         // GET: admin
