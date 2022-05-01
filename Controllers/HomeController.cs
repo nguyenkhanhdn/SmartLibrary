@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using PagedList;
 using SmartLibrary.Models;
 
 namespace SmartLibrary.Controllers
@@ -12,13 +13,19 @@ namespace SmartLibrary.Controllers
     public class HomeController : Controller
     {
         private LibraryEntities db = new LibraryEntities();
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var books = db.Saches.OrderByDescending(b=>b.Id);
-            //var books = db.Saches.OrderBy(b => Guid.NewGuid());
-            //books.Take(8);
+            //var books = db.Saches.OrderByDescending(b=>b.Id);
+            ////var books = db.Saches.OrderBy(b => Guid.NewGuid());
+            ////books.Take(8);
+            ////return View(books.ToList().Take(12));
             //return View(books.ToList().Take(12));
-            return View(books.ToList().Take(12));
+
+            //var books = db.Saches.OrderBy(b => Guid.NewGuid());
+            var books = db.Saches.OrderByDescending(b => b.Id);
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(books.ToPagedList(pageNumber, pageSize));
 
         }
         public ActionResult AddToCart(string id, string title, int quantity = 1)
@@ -70,15 +77,16 @@ namespace SmartLibrary.Controllers
         {
             var books = db.Saches.Where(x=>x.TenSach.Contains(tensach));
             books.OrderBy(r => r.TenSach);
-            return View("Index", books.ToList());
+            return View("SearchBook",books.ToList());
+            //return View("Index", books.ToList());
         }
-        public ActionResult SearchBook()
+        public ActionResult SearchBook(string tensach)
         {
             var books = db.Saches;
             books.OrderBy(r => r.TenSach);
             return View(books.ToList());
         }
-        //[Authorize]
+        [Authorize]
         public ActionResult Registration()
         {
             ShoppingCart cart = Session["cart"] as ShoppingCart;

@@ -1,51 +1,56 @@
 ﻿@{
     ViewBag.Title = "YourCart";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
-<h2>Giỏ sách cần mượn</h2>
-@{ var cart = Session["cart"] as SmartLibrary.Controllers.ShoppingCart;}
-<table class="table table-bordered">
-    <tr>
-        <th>TT</th>
-        <th>Mã sách</th>
-        <th>Tên sách</th>
-        <th>Số lượng</th>
-        <th>Thao tác</th>
-    </tr>
-    @if (cart != null)
-    {
-        for (int i = 0; i < cart.CartItems.Rows.Count; i++)
+@section headingText{
+    <span>GIỎ SÁCH CẦN MƯỢN</span>
+}
+<div class="col-12">
+    <h2>Giỏ sách cần mượn</h2>
+    @{ var cart = Session["cart"] as SmartLibrary.Controllers.ShoppingCart;}
+    <table class="table table-bordered">
+        <tr>
+            <th>TT</th>
+            <th>Mã sách</th>
+            <th>Tên sách</th>
+            <th>Số lượng</th>
+            <th>Thao tác</th>
+        </tr>
+        @if (cart != null)
         {
-            var j = i + 1;
-            <tr>
-                <td>@j</td>
-                <td>@cart.CartItems.Rows[i][0].ToString()</td>
-                <td>@cart.CartItems.Rows[i][1].ToString()</td>
-                <td>@cart.CartItems.Rows[i][2].ToString()</td>
-                <td>
-                    @Html.ActionLink("Xóa", "RemoveItem", "Home",
-                    new { @Id = cart.CartItems.Rows[i][0].ToString() },
-                    new { @class = "btn btn-danger" })
-                </td>
-            </tr>
+            for (int i = 0; i < cart.CartItems.Rows.Count; i++)
+            {
+                var j = i + 1;
+                <tr>
+                    <td>@j</td>
+                    <td>@cart.CartItems.Rows[i][0].ToString()</td>
+                    <td>@cart.CartItems.Rows[i][1].ToString()</td>
+                    <td>@cart.CartItems.Rows[i][2].ToString()</td>
+                    <td>
+                        @Html.ActionLink("Xóa", "RemoveItem", "Home",
+                        new { @Id = cart.CartItems.Rows[i][0].ToString() },
+                        new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
         }
-    }
-</table>
-<span class="info" style="font-weight:bold;">
-    Tổng số sách:
-    @if (cart == null)
-    {
-        var x = 0;
-        @x
-    }
-    else
-    {
-        @cart.TotalValue
-    }
-</span>
-<p></p>
-<div>
-    @Html.ActionLink("Quay về trang chủ", "Index") &nbsp;| &nbsp;- &nbsp;|  @Html.ActionLink("Quay về trang tìm sách", "SearchBook", "Home")
+    </table>
+    <span class="info" style="font-weight:bold;">
+        Tổng số sách:
+        @if (cart == null)
+        {
+            var x = 0;
+            @x
+        }
+        else
+        {
+            @cart.TotalValue
+        }
+    </span>
+    <p></p>
+    <div>
+        @Html.ActionLink("Quay về trang chủ", "Index") &nbsp;| &nbsp;- &nbsp;|  @Html.ActionLink("Quay về trang tìm sách", "SearchBook", "Home")
+    </div>
+    <hr />
+    @Html.ActionLink("Đăng ký mượn", "Registration", "Home", null, new { @class = "btn submit-btn" })
 </div>
-<hr />
-@Html.ActionLink("Đăng ký mượn", "Registration", "Home", null, new { @class = "btn btn-primary" })
