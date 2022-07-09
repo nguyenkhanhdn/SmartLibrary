@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
   <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -48,10 +47,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -178,6 +177,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\adminController.cs" />
+    <Compile Include="Controllers\categoriesController.cs" />
     <Compile Include="Controllers\DangKyMuonController.cs" />
     <Compile Include="Controllers\HocsinhController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -186,12 +186,23 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MuonTraController.cs" />
     <Compile Include="Controllers\SachController.cs" />
+    <Compile Include="Controllers\SendEmail.cs" />
     <Compile Include="Controllers\ShoppingCart.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>LibraryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\category.cs">
+      <DependentUpon>LibraryModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DangKyMuon.cs">
+      <DependentUpon>LibraryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetMemberInfo_Result.cs">
       <DependentUpon>LibraryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Hocsinh.cs">
@@ -1182,9 +1193,23 @@
     <Content Include="ckfinder\skins\v1\uipanel.css" />
     <Content Include="ckfinder\translations.txt" />
     <Content Include="ckfinder\userfiles\images\051-512.png" />
+    <Content Include="ckfinder\userfiles\images\1.PNG" />
     <Content Include="ckfinder\userfiles\images\20-11.jpg" />
     <Content Include="ckfinder\userfiles\images\2212.jpg" />
     <Content Include="ckfinder\userfiles\images\8-3.jpg" />
+    <Content Include="ckfinder\userfiles\images\amthuc.jpg" />
+    <Content Include="ckfinder\userfiles\images\amthuc02.jpg" />
+    <Content Include="ckfinder\userfiles\images\avatar5.png" />
+    <Content Include="ckfinder\userfiles\images\book1.jpg" />
+    <Content Include="ckfinder\userfiles\images\book2.jpg" />
+    <Content Include="ckfinder\userfiles\images\book3.jpg" />
+    <Content Include="ckfinder\userfiles\images\book4.jpg" />
+    <Content Include="ckfinder\userfiles\images\book5.jpg" />
+    <Content Include="ckfinder\userfiles\images\book6.jpg" />
+    <Content Include="ckfinder\userfiles\images\eng1.jpg" />
+    <Content Include="ckfinder\userfiles\images\hh.jpg" />
+    <Content Include="ckfinder\userfiles\images\sinhhoc.jpg" />
+    <Content Include="ckfinder\userfiles\images\vatly.jpg" />
     <Content Include="ckfinder\userfiles\_thumbs\Images\051-512.png" />
     <Content Include="ckfinder\userfiles\_thumbs\Images\20-11.jpg" />
     <Content Include="ckfinder\userfiles\_thumbs\Images\2212.jpg" />
@@ -1205,13 +1230,18 @@
     <Content Include="ckfinder\_samples\standalone_v1.html" />
     <Content Include="Content\adminlte.min.css" />
     <Content Include="Content\all.min.css" />
+    <Content Include="Content\assets\books\book01.png" />
+    <Content Include="Content\assets\books\book02.png" />
+    <Content Include="Content\assets\books\book03.png" />
     <Content Include="Content\assets\books\book1.png" />
     <Content Include="Content\assets\books\book2.jpg" />
     <Content Include="Content\assets\books\book3.png" />
+    <Content Include="Content\assets\books\library.jpeg" />
     <Content Include="Content\assets\books\library.jpg" />
     <Content Include="Content\assets\books\library2.jpg" />
     <Content Include="Content\assets\books\library3.jpg" />
     <Content Include="Content\assets\css\style.css" />
+    <Content Include="Content\assets\css\style1.css" />
     <Content Include="Content\assets\img\about.jpg" />
     <Content Include="Content\assets\img\apple-touch-icon.png" />
     <Content Include="Content\assets\img\books.png" />
@@ -1356,13 +1386,6 @@
     <Content Include="ckfinder\skins\bootstrap\assets\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="ckfinder\skins\bootstrap\assets\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="ckfinder\userfiles\.htaccess" />
-    <EntityDeploy Include="Models\LibraryModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>LibraryModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\LibraryModel.edmx.diagram">
-      <DependentUpon>LibraryModel.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\assets\vendor\bootstrap-icons\bootstrap-icons.json" />
     <Content Include="Content\assets\vendor\bootstrap-icons\fonts\bootstrap-icons.woff" />
     <Content Include="Content\assets\vendor\bootstrap-icons\fonts\bootstrap-icons.woff2" />
@@ -1397,8 +1420,16 @@
     <Content Include="Content\assets\vendor\remixicon\remixicon.ttf" />
     <Content Include="Content\assets\vendor\remixicon\remixicon.woff" />
     <Content Include="Content\assets\vendor\remixicon\remixicon.woff2" />
+    <EntityDeploy Include="Models\LibraryModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LibraryModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\LibraryModel.edmx.diagram">
+      <DependentUpon>LibraryModel.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\D2B - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\eSmartLibrary - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\SmartLibrary2021 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\dataTables.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -1422,7 +1453,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -1459,7 +1489,6 @@
     <Content Include="webfonts\fa-solid-900.ttf" />
     <Content Include="webfonts\fa-solid-900.woff" />
     <Content Include="webfonts\fa-solid-900.woff2" />
-    <Content Include="Views\Shared\_LayoutPage1.cshtml" />
     <Content Include="Views\admin\Index.cshtml" />
     <Content Include="Views\Home\YourCart.cshtml" />
     <Content Include="Views\Home\SearchBook.cshtml" />
@@ -1500,6 +1529,20 @@
     <Content Include="Views\MuonTra\Quahan.cshtml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\Shared\_LayoutHome.cshtml" />
+    <Content Include="Views\categories\Create.cshtml" />
+    <Content Include="Views\categories\Delete.cshtml" />
+    <Content Include="Views\categories\Details.cshtml" />
+    <Content Include="Views\categories\Edit.cshtml" />
+    <Content Include="Views\categories\Index.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="webfonts\boxicons.woff2" />
+    <Content Include="webfonts\boxicons.woff" />
+    <Content Include="webfonts\bootstrap-icons.woff" />
+    <Content Include="webfonts\bootstrap-icons.woff2" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1555,10 +1598,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-    <Error Condition="!Exists('packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
   </Target>
-  <Import Project="packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

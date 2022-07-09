@@ -12,6 +12,8 @@ namespace SmartLibrary.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class LibraryEntities : DbContext
     {
@@ -25,11 +27,22 @@ namespace SmartLibrary.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<DangKyMuon> DangKyMuons { get; set; }
         public virtual DbSet<Hocsinh> Hocsinhs { get; set; }
         public virtual DbSet<LoaiSach> LoaiSaches { get; set; }
         public virtual DbSet<Lop> Lops { get; set; }
-        public virtual DbSet<Sach> Saches { get; set; }
         public virtual DbSet<MuonTra> MuonTras { get; set; }
-        public virtual DbSet<DangKyMuon> DangKyMuons { get; set; }
+        public virtual DbSet<Sach> Saches { get; set; }
+        public virtual DbSet<category> categories { get; set; }
+    
+        public virtual ObjectResult<GetMemberInfo_Result> GetMemberInfo(string userId)
+        {
+            var userIdParameter = userId != null ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetMemberInfo_Result>("GetMemberInfo", userIdParameter);
+        }
     }
 }

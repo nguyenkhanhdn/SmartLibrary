@@ -13,9 +13,9 @@ section#login {
 }
 
 .submit-btn {
-    background-color: #28c0eb;
+    background-color: #5fcf80;
     color: white;
-}j
+}
 
 .heading {
     padding: 20px 0;
@@ -38,7 +38,7 @@ body {
 }
 
 a {
-    color: #28c0eb;
+    color: #5fcf80;
     text-decoration: none;
 }
 
@@ -61,7 +61,7 @@ h1, h2, h3, h4, h5, h6 {
     right: 15px;
     bottom: 15px;
     z-index: 996;
-    background: #28c0eb;
+    background: #5fcf80;
     width: 40px;
     height: 40px;
     border-radius: 50px;
@@ -163,7 +163,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
         #header .logo a {
-            color: #28c0eb;
+            color: #5fcf80;
         }
 
         #header .logo img {
@@ -223,7 +223,7 @@ h1, h2, h3, h4, h5, h6 {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 10px 0 10px 15px;
+        padding: 10px 0 10px 30px;
         font-family: "Poppins", sans-serif;
         font-size: 15px;
         font-weight: 500;
@@ -239,7 +239,7 @@ h1, h2, h3, h4, h5, h6 {
         }
 
         .navbar a:hover, .navbar .active, .navbar .active:focus, .navbar li:hover > a {
-            color: #28c0eb;
+            color: #5fcf80;
         }
 
     .navbar .dropdown ul {
@@ -547,7 +547,7 @@ section {
 .breadcrumbs {
     margin-top: 73px;
     text-align: center;
-    background: #28c0eb;
+    background: #5fcf80;
     padding: 30px 0;
     color: #fff;
 }
@@ -1479,7 +1479,7 @@ section {
 
                 #footer .footer-top .footer-links ul i {
                     padding-right: 2px;
-                    color: #28c0eb;
+                    color: #5fcf80;
                     font-size: 18px;
                     line-height: 1;
                 }
@@ -1543,7 +1543,7 @@ section {
                 background: none;
                 font-size: 16px;
                 padding: 0 20px 2px 20px;
-                background: #28c0eb;
+                background: #5fcf80;
                 color: #fff;
                 transition: 0.3s;
                 border-radius: 50px;
@@ -1560,7 +1560,7 @@ section {
     }
 
         #footer .credits a {
-            color: #28c0eb;
+            color: #3ac162;
             transition: 0.3s;
         }
 
@@ -1571,7 +1571,7 @@ section {
     #footer .social-links a {
         font-size: 18px;
         display: inline-block;
-        background: #28c0eb;
+        background: #5fcf80;
         color: #fff;
         line-height: 1;
         padding: 8px 0;
@@ -1610,7 +1610,7 @@ section {
         background: none;
         font-size: 16px;
         padding: 0 20px 2px 20px;
-        background: #28c0eb;
+        background: #5fcf80;
         color: #fff;
         transition: 0.3s;
         border-radius: 50px;

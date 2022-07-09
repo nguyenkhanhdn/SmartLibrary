@@ -10,116 +10,107 @@ using SmartLibrary.Models;
 
 namespace SmartLibrary.Controllers
 {
-    [Authorize(Users = "admin@sl.com")]
-    public class HocsinhController : Controller
+    public class categoriesController : Controller
     {
         private LibraryEntities db = new LibraryEntities();
-        
-        
-        // GET: Hocsinh
+
+        // GET: categories
         public ActionResult Index()
         {
-            var hocsinhs = db.Hocsinhs.Include(h => h.Lop);
-            return View(hocsinhs.ToList());
+            return View(db.categories.ToList());
         }
 
-        // GET: Hocsinh/Details/5
+        // GET: categories/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hocsinh hocsinh = db.Hocsinhs.Find(id);
-            if (hocsinh == null)
+            category category = db.categories.Find(id);
+            if (category == null)
             {
                 return HttpNotFound();
             }
-            return View(hocsinh);
+            return View(category);
         }
 
-        // GET: Hocsinh/Create
-        [AllowAnonymous]
+        // GET: categories/Create
         public ActionResult Create()
         {
-            ViewBag.LopId = new SelectList(db.Lops, "Id", "Tenlop");
             return View();
         }
 
-        // POST: Hocsinh/Create
+        // POST: categories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AllowAnonymous]        
-        public ActionResult Create([Bind(Include = "Id,Hoten,LopId,Dienthoai,Email,Diachi,Phuhuynh,Anh")] Hocsinh hocsinh)
+        public ActionResult Create([Bind(Include = "Id,CategoryName")] category category)
         {
             if (ModelState.IsValid)
             {
-                db.Hocsinhs.Add(hocsinh);
+                db.categories.Add(category);
                 db.SaveChanges();
-                return RedirectToAction("index");
+                return RedirectToAction("Index");
             }
 
-            ViewBag.LopId = new SelectList(db.Lops, "Id", "Tenlop", hocsinh.LopId);
-            return View(hocsinh);
+            return View(category);
         }
 
-        // GET: Hocsinh/Edit/5
+        // GET: categories/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hocsinh hocsinh = db.Hocsinhs.Find(id);
-            if (hocsinh == null)
+            category category = db.categories.Find(id);
+            if (category == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.LopId = new SelectList(db.Lops, "Id", "Tenlop", hocsinh.LopId);
-            return View(hocsinh);
+            return View(category);
         }
 
-        // POST: Hocsinh/Edit/5
+        // POST: categories/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Hoten,LopId,Dienthoai,Email,Diachi,Phuhuynh,Anh")] Hocsinh hocsinh)
+        public ActionResult Edit([Bind(Include = "Id,CategoryName")] category category)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(hocsinh).State = EntityState.Modified;
+                db.Entry(category).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.LopId = new SelectList(db.Lops, "Id", "Tenlop", hocsinh.LopId);
-            return View(hocsinh);
+            return View(category);
         }
 
-        // GET: Hocsinh/Delete/5
+        // GET: categories/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hocsinh hocsinh = db.Hocsinhs.Find(id);
-            if (hocsinh == null)
+            category category = db.categories.Find(id);
+            if (category == null)
             {
                 return HttpNotFound();
             }
-            return View(hocsinh);
+            return View(category);
         }
 
-        // POST: Hocsinh/Delete/5
+        // POST: categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Hocsinh hocsinh = db.Hocsinhs.Find(id);
-            db.Hocsinhs.Remove(hocsinh);
+            category category = db.categories.Find(id);
+            db.categories.Remove(category);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

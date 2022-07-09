@@ -15,13 +15,7 @@ namespace SmartLibrary.Controllers
         private LibraryEntities db = new LibraryEntities();
         public ActionResult Index(int? page)
         {
-            //var books = db.Saches.OrderByDescending(b=>b.Id);
-            ////var books = db.Saches.OrderBy(b => Guid.NewGuid());
-            ////books.Take(8);
-            ////return View(books.ToList().Take(12));
-            //return View(books.ToList().Take(12));
 
-            //var books = db.Saches.OrderBy(b => Guid.NewGuid());
             var books = db.Saches.OrderByDescending(b => b.Id);
             int pageSize = 3;
             int pageNumber = (page ?? 1);

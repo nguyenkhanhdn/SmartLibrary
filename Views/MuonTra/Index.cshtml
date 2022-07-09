@@ -21,7 +21,7 @@
 </ul>
 <hr />
 <p>
-    @Html.ActionLink("Mượn sách", "Create")
+    @Html.ActionLink("Cho mượn", "Create")
 </p>
 <table class="table table-bordered table-condensed table-hover" id="muontra">
     <thead>
@@ -51,6 +51,7 @@
         </tr>
     </thead>
     <tbody>
+        
         @foreach (var item in Model)
         {
             <tr>

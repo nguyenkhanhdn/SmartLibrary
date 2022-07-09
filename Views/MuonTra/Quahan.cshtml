@@ -1,9 +1,7 @@
 ﻿@model IEnumerable<SmartLibrary.Models.MuonTra>
-
 @{
     ViewBag.Title = "Index";
 }
-
 @section title{
     <span>Mượn - trả sách</span>
 }
@@ -21,7 +19,12 @@
 </ul>
 <hr />
 <p>
-    @Html.ActionLink("Mượn sách", "Create")
+    <div style="float:left;margin-left:10px;margin-right:10px;margin-bottom:20px;">
+    <a class="btn btn-primary" href="~/Muontra/create">Cho mượn</a></div>
+
+    <button onclick="inform()" class="btn btn-warning" id="remind">Nhắc nhỡ</button>
+    <div id="loader" class="lds-dual-ring hidden overlay"></div>
+
 </p>
 <table class="table table-bordered table-condensed table-hover" id="muontra">
     <thead>
@@ -92,5 +95,79 @@
                 "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
             });
         });
+        function inform() {
+            $.ajax({
+                url: '/Muontra/Inform',
+                type: 'POST',
+                dataType: 'json',
+                cache: false,
+                beforeSend: function () {
+                    // Before we send the request, remove the .hidden class from the spinner and default to inline-block.
+                    $('#loader').removeClass('hidden');
+                },
+                complete: function () { // Set our complete callback, adding the .hidden class and hiding the spinner.
+                    $('#loader').addClass('hidden');
+                },
+                success: function (results) {
+                    $('#loader').addClass('hidden');
+                    alert("Gửi thông báo: thành công.");
+                },
+                error: function () {
+                    alert('Gửi thông báo: có lỗi xảy ra.');
+                }
+            });
+        }
     </script>
+}
+@section css{
+    <style type="text/css">
+        .lds-dual-ring.hidden {
+            display:none;
+        }
+
+        /*Add an overlay to the entire page blocking any further presses to buttons or other elements.*/
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0,0,0,.8);
+            z-index: 999;
+            opacity: 1;
+            transition: all 0.5s;
+        }
+
+        /*Spinner Styles*/
+        .lds-dual-ring {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            z-index:99;
+            left:550px;
+            top:180px;
+        }
+
+        .lds-dual-ring:after {
+            content: " ";
+            display: block;
+            width: 50px;
+            height: 50px;
+            margin: 5% auto;
+            border-radius: 50%;
+            border: 6px solid rgb(255 106 0);
+            border-color: rgb(255 106 0) transparent rgb(255 106 0) transparent;
+            animation: lds-dual-ring 1.2s linear infinite;
+        }
+
+        @@keyframes lds-dual-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 }

@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using SmartLibrary.Models;
@@ -149,6 +150,33 @@ namespace SmartLibrary.Controllers
             db.MuonTras.Remove(muonTra);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public JsonResult Inform()
+        {
+            string status = "OK";
+            string emails = ""; 
+            
+            try
+            {
+                DataTable ds = SendEmail.GetData();
+                               
+                foreach (DataRow row in ds.Rows)
+                {
+                    string hocsinh = row[0].ToString();
+                    string email = row[1].ToString();
+                    string tensach = row[2].ToString();
+                    string ngaymuon = row[3].ToString();
+                    string cont = string.Format("{0} mượn sách {1} từ ngày {2}, " +
+                        "sách đã quá hạn yêu cầu trả sách sớm cho thư viện.", hocsinh, tensach, ngaymuon);
+                    SendEmail.Send(email, cont);
+                }               
+            }
+            catch (Exception ex)
+            {
+                status = ex.Message;
+            }
+            return Json(JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

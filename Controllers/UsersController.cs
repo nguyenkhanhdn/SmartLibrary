@@ -10,116 +10,118 @@ using SmartLibrary.Models;
 
 namespace SmartLibrary.Controllers
 {
-    [Authorize(Users = "admin@sl.com")]
-    public class HocsinhController : Controller
+    public class UsersController : Controller
     {
         private LibraryEntities db = new LibraryEntities();
-        
-        
-        // GET: Hocsinh
+
+        // GET: Users
         public ActionResult Index()
         {
-            var hocsinhs = db.Hocsinhs.Include(h => h.Lop);
-            return View(hocsinhs.ToList());
+            //return View(db.AspNetUsers.ToList());
+
+            var students = (from au in db.AspNetUsers
+                              join hs in db.Hocsinhs on au.Email equals hs.Email
+                              select new
+                              {
+                                  Lop = hs.Lop.Tenlop,
+                                  Hocsinh = hs.Hoten,
+                                  Email = hs.Email
+                              });
+
+            return View(students);
         }
 
-        // GET: Hocsinh/Details/5
-        public ActionResult Details(int? id)
+        // GET: Users/Details/5
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hocsinh hocsinh = db.Hocsinhs.Find(id);
-            if (hocsinh == null)
+            AspNetUser aspNetUser = db.AspNetUsers.Find(id);
+            if (aspNetUser == null)
             {
                 return HttpNotFound();
             }
-            return View(hocsinh);
+            return View(aspNetUser);
         }
 
-        // GET: Hocsinh/Create
-        [AllowAnonymous]
+        // GET: Users/Create
         public ActionResult Create()
         {
-            ViewBag.LopId = new SelectList(db.Lops, "Id", "Tenlop");
             return View();
         }
 
-        // POST: Hocsinh/Create
+        // POST: Users/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AllowAnonymous]        
-        public ActionResult Create([Bind(Include = "Id,Hoten,LopId,Dienthoai,Email,Diachi,Phuhuynh,Anh")] Hocsinh hocsinh)
+        public ActionResult Create([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] AspNetUser aspNetUser)
         {
             if (ModelState.IsValid)
             {
-                db.Hocsinhs.Add(hocsinh);
-                db.SaveChanges();
-                return RedirectToAction("index");
-            }
-
-            ViewBag.LopId = new SelectList(db.Lops, "Id", "Tenlop", hocsinh.LopId);
-            return View(hocsinh);
-        }
-
-        // GET: Hocsinh/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Hocsinh hocsinh = db.Hocsinhs.Find(id);
-            if (hocsinh == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.LopId = new SelectList(db.Lops, "Id", "Tenlop", hocsinh.LopId);
-            return View(hocsinh);
-        }
-
-        // POST: Hocsinh/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Hoten,LopId,Dienthoai,Email,Diachi,Phuhuynh,Anh")] Hocsinh hocsinh)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(hocsinh).State = EntityState.Modified;
+                db.AspNetUsers.Add(aspNetUser);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.LopId = new SelectList(db.Lops, "Id", "Tenlop", hocsinh.LopId);
-            return View(hocsinh);
+
+            return View(aspNetUser);
         }
 
-        // GET: Hocsinh/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: Users/Edit/5
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hocsinh hocsinh = db.Hocsinhs.Find(id);
-            if (hocsinh == null)
+            AspNetUser aspNetUser = db.AspNetUsers.Find(id);
+            if (aspNetUser == null)
             {
                 return HttpNotFound();
             }
-            return View(hocsinh);
+            return View(aspNetUser);
         }
 
-        // POST: Hocsinh/Delete/5
+        // POST: Users/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] AspNetUser aspNetUser)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(aspNetUser).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(aspNetUser);
+        }
+
+        // GET: Users/Delete/5
+        public ActionResult Delete(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            AspNetUser aspNetUser = db.AspNetUsers.Find(id);
+            if (aspNetUser == null)
+            {
+                return HttpNotFound();
+            }
+            return View(aspNetUser);
+        }
+
+        // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            Hocsinh hocsinh = db.Hocsinhs.Find(id);
-            db.Hocsinhs.Remove(hocsinh);
+            AspNetUser aspNetUser = db.AspNetUsers.Find(id);
+            db.AspNetUsers.Remove(aspNetUser);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

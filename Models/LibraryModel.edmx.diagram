@@ -4,19 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f3f1b360c30545f28bb68cd870492155" Name="Diagram1">
-        <EntityTypeShape EntityType="eLibraryModel.Hocsinh" Width="1.5" PointX="10" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="eLibraryModel.LoaiSach" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="eLibraryModel.Lop" Width="1.5" PointX="7.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="eLibraryModel.Sach" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
-        <AssociationConnector Association="eLibraryModel.FK_Hocsinh_Lop" ManuallyRouted="false" />
-        <AssociationConnector Association="eLibraryModel.FK_Sach_LoaiSach" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="eLibraryModel.MuonTra" Width="1.5" PointX="15.25" PointY="2" />
-        <AssociationConnector Association="eLibraryModel.FK_MuonTra_Hocsinh" />
-        <AssociationConnector Association="eLibraryModel.FK_MuonTra_Sach" />
-        <EntityTypeShape EntityType="eLibraryModel.DangKyMuon" Width="1.5" PointX="12.25" PointY="1.75" />
-        <AssociationConnector Association="eLibraryModel.FK_DangKyMuon_Hocsinh" />
-        <AssociationConnector Association="eLibraryModel.FK_DangKyMuon_Sach" />
+      <Diagram DiagramId="49b1acb89f914f6dbffc42a3dd556567" Name="Diagram1">
+        <EntityTypeShape EntityType="SmartLibrary.AspNetUser" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartLibrary.DangKyMuon" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartLibrary.Hocsinh" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartLibrary.LoaiSach" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartLibrary.Lop" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartLibrary.MuonTra" Width="1.5" PointX="8.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartLibrary.Sach" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="SmartLibrary.FK_DangKyMuon_Hocsinh" ManuallyRouted="false" />
+        <AssociationConnector Association="SmartLibrary.FK_DangKyMuon_Sach" ManuallyRouted="false" />
+        <AssociationConnector Association="SmartLibrary.FK_Hocsinh_Lop" ManuallyRouted="false" />
+        <AssociationConnector Association="SmartLibrary.FK_MuonTra_Hocsinh" ManuallyRouted="false" />
+        <AssociationConnector Association="SmartLibrary.FK_Sach_LoaiSach" ManuallyRouted="false" />
+        <AssociationConnector Association="SmartLibrary.FK_MuonTra_Sach" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SmartLibrary.category" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
